@@ -10,3 +10,4 @@ dhcp_hosts_file: "/etc/hosts"
 use_dhcp: false
 use_pxe: false
 use_kickstart: true
+use_autoyast: false

@@ -11,6 +11,10 @@
   template: src=kickstart.j2 dest="/var/www/html/kickstart/{{ inventory_hostname_short }}.ks"
   when: use_pxe and use_kickstart
 
+- name: Create autoyast file
+  template: src=autoyast.j2 dest="/var/www/html/kickstart/{{ inventory_hostname_short }}.xml"
+  when: use_pxe and use_autoyast
+  
 - name: Find all the configs in dhcpd.d directory
   run_once: true
   find:
