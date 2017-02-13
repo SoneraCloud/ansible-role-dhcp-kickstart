@@ -95,7 +95,7 @@
     </yesno_messages>
   </report>
   <language>
-         <language>en_US</language>
+    <language>en_US</language>
   </language>
   <timezone>
     <hwclock>UTC</hwclock>
@@ -130,11 +130,6 @@
       <user_password>{{ root_password_hash }}</user_password>
       <username>root</username>
     </user>
-    <user>
-      <encrypted config:type="boolean">true</encrypted>
-      <user_password>{{ root_password_hash }}</user_password>
-      <username>{{ ansible_user_id }}</username>
-    </user>
   </users>
   <scripts>
     <post-scripts config:type="list">
@@ -143,10 +138,11 @@
         <interpreter>shell</interpreter>
         <source><![CDATA[
 #!/bin/sh
-mkdir -p /home/{{ ansible_user_id }}/.ssh/authorized_keys
-echo "{{ (adminusers|selectattr('name', 'match', ansible_user_id)|first).pubkey }}" > /home/{{ ansible_user_id }}/.ssh/authorized_keys
-chmod 700 /home/{{ ansible_user_id }}/.ssh
-chmod 600 /home/{{ ansible_user_id }}/.ssh/authorized_keys
+mkdir -p /root/.ssh
+touch /root/.ssh/authorized_keys
+echo "{{ (adminusers|selectattr('name', 'match', ansible_user_id)|first).pubkey }}" > /root/.ssh/authorized_keys
+chmod 700 /root/.ssh
+chmod 600 /root/.ssh/authorized_keys
 ]]>
         </source>
       </script>
