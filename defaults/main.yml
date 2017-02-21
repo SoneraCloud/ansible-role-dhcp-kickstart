@@ -1,6 +1,7 @@
 ---
 lang: "en_US.UTF-8"
 keyboard: "fi-latin1"
+autoyast_keyboard: finnish
 timezone: "Europe/Helsinki"
 kickstart_packagesfile: "templates/kickstart-packages.j2"
 kickstart_postfiles:

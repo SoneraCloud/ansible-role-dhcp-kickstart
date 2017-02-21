@@ -34,7 +34,7 @@ try:
     if "kickstart_url" in nodesettings:
         bootstrap = " ks=" + nodesettings["kickstart_url"] + " ksdevice=bootif kssendmac"
     elif "autoyast_url" in nodesettings:
-        bootstrap = " autoyast=" + nodesettings["autoyast_url"]
+        bootstrap = " autoyast=" + nodesettings["autoyast_url"] + " install=" + nodesettings["autoyast_install_url"]
     print "#!ipxe"
     print "kernel " + nodesettings["kernel_url_path"] + "/" + nodesettings.get("kernel_name", "vmlinuz") + bootstrap + " edd=off console=ttyS1,115200 console=tty0 initrd=" + nodesettings.get("initrd_name", "initrd.img") + " " + nodesettings.get("extra_kernel_params", "")
     print "initrd " + nodesettings["kernel_url_path"] + "/" + nodesettings.get("initrd_name", "initrd.img")

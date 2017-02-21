@@ -26,7 +26,7 @@
   </general>
   <groups config:type="list"/>
   <keyboard>
-    <keymap>finnish</keymap>
+    <keymap>{{ autoyast_keyboard }}</keymap>
   </keyboard>
   <login_settings/>
   <networking>
@@ -53,24 +53,7 @@
     </routing>
   </networking>
   <partitioning config:type="list">
-    <drive>
-      <device>/dev/sda</device>
-      <use>all</use>
-      <initialize config:type="boolean">true</initialize>
-      <partitions config:type="list">
-        <partition>
-          <create config:type="boolean">true</create>
-          <filesystem config:type="symbol">ext4</filesystem>
-          <format config:type="boolean">true</format>
-          <mount>/</mount>
-          <size>max</size>
-        </partition>
-        <partition>
-          <mount>swap</mount>
-          <size>5G</size>
-        </partition>
-      </partitions>
-    </drive>
+  {{ autoyast_partitions }}
   </partitioning>
   <report>
     <errors>
@@ -95,11 +78,11 @@
     </yesno_messages>
   </report>
   <language>
-    <language>en_US</language>
+    <language>{{ lang }}</language>
   </language>
   <timezone>
     <hwclock>UTC</hwclock>
-    <timezone>Europe/Helsinki</timezone>
+    <timezone>{{ timezone }}</timezone>
   </timezone>
   <user_defaults>
     <group>100</group>
@@ -139,8 +122,9 @@
         <source><![CDATA[
 #!/bin/sh
 mkdir -p /root/.ssh
-touch /root/.ssh/authorized_keys
-echo "{{ (adminusers|selectattr('name', 'match', ansible_user_id)|first).pubkey }}" > /root/.ssh/authorized_keys
+{% for key in root_keys %}
+echo "{{ key }}" >> /root/.ssh/authorized_keys
+{% endfor %}
 chmod 700 /root/.ssh
 chmod 600 /root/.ssh/authorized_keys
 ]]>
