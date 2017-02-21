@@ -30,7 +30,7 @@ try:
             pass
 
     f.close()
-    kickstart = ""
+    bootstrap = ""
     if "kickstart_url" in nodesettings:
         bootstrap = " ks=" + nodesettings["kickstart_url"] + " ksdevice=bootif kssendmac"
     elif "autoyast_url" in nodesettings:
