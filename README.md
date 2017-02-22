@@ -74,7 +74,6 @@ When **use_kickstart** is enabled the following variables are used.
 
 Mandatory:
 
- - kickstart_url
  - install_repo
  - root_password_hash
  - os_disks (in the kickstart format, e.g. "sda,sdb")
@@ -83,6 +82,7 @@ Mandatory:
 
 Optional:
 
+ - kickstart_url
  - additional_repos (list of dicts: [name, url, options])
  - lang (def: en_US.UTF-8)
  - keyboard (def: fi-latin1)
@@ -95,7 +95,6 @@ When **use_autoyast** is enabled the following variables are used.
 
 Mandatory:
 
- - autoyast_url
  - autoyast_install_url
  - root_password_hash
  - autoyast_partitions (xml snippet of partition instructions)
@@ -103,6 +102,7 @@ Mandatory:
 
 Optional:
 
+ - autoyast_url
  - lang (def: en_US.UTF-8)
  - autoyast_keyboard (def: finnish)
  - timezone (def: Europe/Helsinki)
