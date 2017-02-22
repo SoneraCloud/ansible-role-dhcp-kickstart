@@ -2,7 +2,7 @@ PXEboot role for Ansible
 ========================
 
 This is an Ansible role for configuring PXE/iPXE provisioning, either by
-pointing it to an external install source or by provisioning the bootsctrapping
+pointing it to an external install source or by provisioning a bootstrapping
 file itself (kickstart or autoyast).
 
 This role sets up the following:
@@ -16,8 +16,8 @@ This role sets up the following:
  - Apache HTTP server
   - Python script under cgi-bin for handling reprovisioning logic
   - A provisioning directory for provisioning data
-  - Optionally generates kickstart or autoyast files for the desired hosts
- - Optionally also populates /etc/hosts
+ - Optionally generates kickstart or autoyast files for the desired hosts
+ - Optionally populates /etc/hosts
 
 Prerequisites
 -------------
@@ -76,7 +76,6 @@ Mandatory:
 
  - kickstart_url
  - install_repo
- - additional repos
  - root_password_hash
  - os_disks (in the kickstart format, e.g. "sda,sdb")
  - kickstart_partitions (list of kickstart partition instructions)
@@ -84,6 +83,7 @@ Mandatory:
 
 Optional:
 
+ - additional_repos (list of dicts: [name, url, options])
  - lang (def: en_US.UTF-8)
  - keyboard (def: fi-latin1)
  - timezone (def: Europe/Helsinki)
@@ -113,7 +113,7 @@ Caveats
 This role has only been tested on RHEL-derivatives (CentOS) and is suited to
 boot up RHEL-derivatives (built-in kickstart support) or SUSE/SLES (built-in 
 autoyast support). However, other OSs can also be booted by pointing the hosts
-to a proper pxe install base (or livecd). Works with PXE booted KVM VMs.
+to a proper pxe install base. Works also with PXE booted KVM VMs.
 
 
 Example
@@ -128,7 +128,7 @@ use_pxe: true
 kernel_url_path: "http://.../INSTALL/Centos/7/os/x86_64/images/pxeboot/"
 install_repo: "http://.../INSTALL/Centos/7/os/x86_64/"
 additional_repos:
-  - { name: "EPEL", url: "http://.../epel/7/x86_64/", pkgname: "epel-release" }
+  - { name: "EPEL", url: "http://.../epel/7/x86_64/", options: "--install" }
 # Generate a random password that is discarded
 pw: "{{ lookup('pipe', 'openssl rand -base64 28') }}"
 pwsalt: "{{ lookup('pipe', 'openssl rand -hex 8') }}" 

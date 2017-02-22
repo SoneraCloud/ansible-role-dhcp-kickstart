@@ -3,7 +3,7 @@ text
 network
 url --url {{ install_repo }}
 {% for repo in additional_repos %}
-repo --name={{ repo.name }} --baseurl={{ repo.url }}
+repo --name={{ repo.name }} --baseurl={{ repo.url }} {{ repo.options | default(omit) }}
 {% endfor %}
 lang {{ lang }}
 keyboard {{ keyboard }}
